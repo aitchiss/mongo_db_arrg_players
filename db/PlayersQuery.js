@@ -55,6 +55,18 @@ PlayersQuery.prototype = {
         })
       }
     })
+  },
+
+  delete: function(numberId, callback){
+    MongoClient.connect(this.url, function(err, db){
+      if (db){
+        var collection = db.collection('players')
+        collection.remove({number: numberId})
+        collection.find().toArray(function(err, docs){
+          callback(docs)
+        })
+      }
+    })
   }
 }
 
