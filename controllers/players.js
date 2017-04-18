@@ -28,5 +28,18 @@ playersRouter.post('/', function(req, res){
   })
 })
 
+playersRouter.put('/:id', function(req, res){
+  var newInfo = {
+    name: req.body.name,
+    number: parseInt(req.body.number),
+    positions: req.body.positions.split(','),
+    team: req.body.team
+  }
+
+  playersQuery.update(parseInt(req.params.id), newInfo, function(docs){
+    res.json(docs)
+  })
+})
+
 
 module.exports = playersRouter

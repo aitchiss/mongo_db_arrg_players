@@ -37,6 +37,24 @@ PlayersQuery.prototype = {
         })
       }
     })
+  },
+
+  update: function(numberId, newInfo, callback){
+    MongoClient.connect(this.url, function(err, db){
+      if (db){
+        var collection = db.collection('players')
+        collection.update({number: numberId},
+          {
+            $set: {name: newInfo.name,
+              number: newInfo.number,
+              positions: newInfo.positions,
+              team: newInfo.team}
+          })
+        collection.find().toArray(function(err, docs){
+          callback(docs)
+        })
+      }
+    })
   }
 }
 
