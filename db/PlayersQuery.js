@@ -25,6 +25,18 @@ PlayersQuery.prototype = {
         })
       }
     })
+  },
+
+  add: function(player, callback){
+    MongoClient.connect(this.url, function(err, db){
+      if (db){
+        var collection = db.collection('players')
+        collection.insert(player)
+        collection.find().toArray(function(err, docs){
+          callback(docs)
+        })
+      }
+    })
   }
 }
 

@@ -15,5 +15,18 @@ playersRouter.get('/:id', function(req, res){
   })
 })
 
+playersRouter.post('/', function(req, res){
+  var player = {
+    name: req.body.name,
+    number: parseInt(req.body.number),
+    positions: req.body.positions.split(','),
+    team: req.body.team
+  }
+
+  playersQuery.add(player, function(docs){
+    res.json(docs)
+  })
+})
+
 
 module.exports = playersRouter
