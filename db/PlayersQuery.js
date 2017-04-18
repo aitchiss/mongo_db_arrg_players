@@ -14,6 +14,17 @@ PlayersQuery.prototype = {
         })
       }
     })
+  },
+
+  find: function(numberId, callback){
+    MongoClient.connect(this.url, function(err, db){
+      if (db){
+        var collection = db.collection('players')
+        collection.find({number: numberId}).toArray(function(err, docs){
+          callback(docs)
+        })
+      }
+    })
   }
 }
 

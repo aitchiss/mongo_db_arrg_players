@@ -9,5 +9,11 @@ playersRouter.get('/', function(req, res){
   })
 })
 
+playersRouter.get('/:id', function(req, res){
+  playersQuery.find(parseInt(req.params.id), function(docs){
+    res.json(docs)
+  })
+})
+
 
 module.exports = playersRouter
