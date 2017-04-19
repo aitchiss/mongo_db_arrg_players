@@ -42,7 +42,8 @@ playersRouter.put('/:id', function(req, res){
 })
 
 playersRouter.delete('/:id', function(req, res){
-  playersQuery.delete(parseInt(req.params.id), function(docs){
+  
+  playersQuery.delete(req.params.id, function(docs){
     res.json(docs)
   })
 })

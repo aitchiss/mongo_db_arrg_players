@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient
+var ObjectID = require('mongodb').ObjectID
 
 var PlayersQuery = function(){
   this.url = 'mongodb://localhost:27017/arrg_players'
@@ -57,11 +58,11 @@ PlayersQuery.prototype = {
     })
   },
 
-  delete: function(numberId, callback){
+  delete: function(objectId, callback){
     MongoClient.connect(this.url, function(err, db){
       if (db){
         var collection = db.collection('players')
-        collection.remove({number: numberId})
+        collection.remove({_id: ObjectID(objectId)})
         collection.find().toArray(function(err, docs){
           callback(docs)
         })
